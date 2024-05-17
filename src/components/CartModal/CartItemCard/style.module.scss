@@ -1,0 +1,27 @@
+.itemCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+        color: var(--color-gray-200);
+        transition: filter 200ms;
+    }
+
+    button:hover {
+        filter: brightness(1.05);
+    }
+}
+
+.cardInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    img {
+        border-radius: 0.3125rem;
+        background-color: var(--color-gray-100);
+        max-width: 5rem;
+    }
+}

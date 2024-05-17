@@ -1,0 +1,13 @@
+.productsList {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 650px) {
+    .productsList {
+        flex-wrap: nowrap;
+        overflow: auto;
+    }
+}
