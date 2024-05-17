@@ -4,7 +4,6 @@ const initialState = localStorageCartList
     : [];
 
 const cartReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
         case "ADD_CART": {
             const { product } = action;
