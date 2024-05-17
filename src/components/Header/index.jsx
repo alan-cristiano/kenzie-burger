@@ -2,18 +2,26 @@ import { useState } from "react";
 import Logo from "../../assets/Logo.svg";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 import style from "./style.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { productSearchAction } from "../../store/modules/searchProduct/actions";
 
-export const Header = ({
-    setModalIsOpen,
-    cartList,
-    setSearchProduct,
-    cleanFilter,
-}) => {
+export const Header = ({ setModalIsOpen }) => {
+    const cartList = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
+
+    const handleSearchProduct = (product) => {
+        dispatch(productSearchAction(product));
+    };
+
+    const cleanFilter = () => {
+        handleSearchProduct([]);
+    };
+
     const [value, setValue] = useState("");
 
     const onSubmit = (e) => {
         e.preventDefault();
-        setSearchProduct(value);
+        handleSearchProduct(value);
         setValue("");
     };
 

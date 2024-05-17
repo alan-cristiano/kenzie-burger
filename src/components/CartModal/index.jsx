@@ -3,13 +3,17 @@ import { CartItemCard } from "./CartItemCard";
 import { useHandleOutClick } from "../../hooks/useHandleOutClick";
 import { useHandleKeydown } from "../../hooks/useHandleKeydown";
 import style from "./style.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { removeAllFromCartAction } from "../../store/modules/cart/actions";
 
-export const CartModal = ({
-    cartList,
-    removeProductFromCart,
-    removeAllProductFromCart,
-    setModalIsOpen,
-}) => {
+export const CartModal = ({ setModalIsOpen }) => {
+    const dispatch = useDispatch();
+    const handleRemoveAllFromCartList = () => {
+        dispatch(removeAllFromCartAction());
+    };
+
+    const cartList = useSelector((state) => state.cart);
+
     const total = cartList.reduce((prevValue, product) => {
         return prevValue + product.price;
     }, 0);
@@ -49,9 +53,6 @@ export const CartModal = ({
                                         <CartItemCard
                                             key={product.id}
                                             product={product}
-                                            removeProductFromCart={
-                                                removeProductFromCart
-                                            }
                                         />
                                     ))
                                 ) : (
@@ -77,7 +78,7 @@ export const CartModal = ({
                             <button
                                 data-testid="delete-all-product"
                                 className="button"
-                                onClick={() => removeAllProductFromCart()}
+                                onClick={() => handleRemoveAllFromCartList()}
                             >
                                 Remover todos
                             </button>

@@ -1,7 +1,52 @@
+import { useDispatch, useSelector } from "react-redux";
 import style from "./style.module.scss";
+import { addToCartAction } from "../../../store/modules/cart/actions";
 
-export const ProductCard = ({ product, addProductToCart }) => {
-    console.log(product);
+export const ProductCard = ({ product }) => {
+    const cartList = useSelector((state) => state.cart);
+
+    const dispatch = useDispatch();
+    const handleAddToCartList = (product) => {
+        dispatch(addToCartAction(product));
+    };
+
+    const addProductToCart = (product) => {
+        if (cartList.some((element) => element.id === product.id)) {
+            Toastify({
+                text: "Produto já presente no carrinho de compras",
+                duration: 2000,
+                close: true,
+                gravity: "top",
+                position: "center",
+                stopOnFocus: true,
+                style: {
+                    padding: "0.7rem",
+                    fontFamily: "Inter, sans-serif",
+                    display: "flex",
+                    gap: "0.5rem",
+                    background: "var(--color-secondary)",
+                },
+            }).showToast();
+        } else {
+            handleAddToCartList(product);
+            Toastify({
+                text: "Produto adicionado ao carrinho de compras",
+                duration: 2000,
+                close: true,
+                gravity: "top",
+                position: "center",
+                stopOnFocus: true,
+                style: {
+                    padding: "0.7rem",
+                    fontFamily: "Inter, sans-serif",
+                    display: "flex",
+                    gap: "0.5rem",
+                    background: "var(--color-primary)",
+                },
+            }).showToast();
+        }
+    };
+
     return (
         <li className={style.cardContent}>
             <div className={style.imageContent}>
