@@ -6,23 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { productSearchAction } from "../../store/modules/searchProduct/actions";
 
 export const Header = ({ setModalIsOpen }) => {
+    const [value, setValue] = useState("");
     const cartList = useSelector((state) => state.cart);
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     const handleSearchProduct = (product) => {
         dispatch(productSearchAction(product));
     };
-
-    const cleanFilter = () => {
-        handleSearchProduct([]);
-    };
-
-    const [value, setValue] = useState("");
 
     const onSubmit = (e) => {
         e.preventDefault();
         handleSearchProduct(value);
         setValue("");
+    };
+
+    const cleanFilter = () => {
+        handleSearchProduct([]);
     };
 
     return (

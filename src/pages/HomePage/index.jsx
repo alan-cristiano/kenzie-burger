@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { productsListAction } from "../../store/modules/products/actions";
 
 export const HomePage = () => {
+    const [loading, setLoading] = useState(true);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
     const dispatch = useDispatch();
     const handleProductsList = (data) => {
         dispatch(productsListAction(data));
@@ -15,10 +18,6 @@ export const HomePage = () => {
     const productList = useSelector((state) => state.products);
     const searchProduct = useSelector((state) => state.searchProduct);
     const cartList = useSelector((state) => state.cart);
-
-    const [loading, setLoading] = useState(true);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
     const productsToRender = searchProduct
         ? productList.filter((product) =>
               product.name.toLowerCase().includes(searchProduct)

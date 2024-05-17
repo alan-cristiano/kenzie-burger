@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeAllFromCartAction } from "../../store/modules/cart/actions";
 
 export const CartModal = ({ setModalIsOpen }) => {
+    const cartList = useSelector((state) => state.cart);
+
     const dispatch = useDispatch();
     const handleRemoveAllFromCartList = () => {
         dispatch(removeAllFromCartAction());
     };
-
-    const cartList = useSelector((state) => state.cart);
 
     const total = cartList.reduce((prevValue, product) => {
         return prevValue + product.price;
