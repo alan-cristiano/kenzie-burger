@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CartModal } from "../../components/CartModal";
 import { Header } from "../../components/Header";
 import { ProductList } from "../../components/ProductList";
 import api from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { productsListAction } from "../../store/modules/productsList/actions";
+import { loadingPageAction } from "../../store/modules/loadingPage/actions";
 
 export const HomePage = () => {
     const dispatch = useDispatch();
-
-    const [loading, setLoading] = useState(true);
 
     const modalIsOpen = useSelector((state) => state.cartModal);
     const productList = useSelector((state) => state.products);
     const searchProduct = useSelector((state) => state.searchProduct);
     const cartList = useSelector((state) => state.cart);
+    const loadingPage = useSelector((state) => state.loadingPage);
 
     useEffect(() => {
         const getProductList = async () => {
             try {
-                setLoading(true);
+                dispatch(loadingPageAction(true));
                 const { data } = await api.get("products");
                 dispatch(productsListAction(data));
             } catch (error) {
                 console.log(error);
             } finally {
-                setLoading(false);
+                dispatch(loadingPageAction(false));
             }
         };
         getProductList();
@@ -34,7 +34,8 @@ export const HomePage = () => {
     useEffect(() => {
         const filteredProductList = async () => {
             try {
-                setLoading(true);
+                dispatch(loadingPageAction(true));
+
                 const { data } = await api.get("products");
                 const list = data.filter((product) =>
                     product.name.toLowerCase().includes(searchProduct)
@@ -43,7 +44,7 @@ export const HomePage = () => {
             } catch (error) {
                 console.log(error);
             } finally {
-                setLoading(false);
+                dispatch(loadingPageAction(false));
             }
         };
         filteredProductList();
@@ -60,7 +61,7 @@ export const HomePage = () => {
         <>
             <Header />
             <main className="container">
-                {loading ? (
+                {loadingPage ? (
                     <p className="body">Carregando informações...</p>
                 ) : (
                     <>
