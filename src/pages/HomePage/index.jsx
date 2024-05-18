@@ -4,32 +4,24 @@ import { Header } from "../../components/Header";
 import { ProductList } from "../../components/ProductList";
 import api from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";
-import { productsListAction } from "../../store/modules/products/actions";
+import { productsListAction } from "../../store/modules/productsList/actions";
 
 export const HomePage = () => {
-    const [loading, setLoading] = useState(true);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
     const dispatch = useDispatch();
-    const handleProductsList = (data) => {
-        dispatch(productsListAction(data));
-    };
 
+    const [loading, setLoading] = useState(true);
+
+    const modalIsOpen = useSelector((state) => state.cartModal);
     const productList = useSelector((state) => state.products);
     const searchProduct = useSelector((state) => state.searchProduct);
     const cartList = useSelector((state) => state.cart);
-    const productsToRender = searchProduct
-        ? productList.filter((product) =>
-              product.name.toLowerCase().includes(searchProduct)
-          )
-        : productList;
 
     useEffect(() => {
         const getProductList = async () => {
             try {
                 setLoading(true);
                 const { data } = await api.get("products");
-                handleProductsList(data);
+                dispatch(productsListAction(data));
             } catch (error) {
                 console.log(error);
             } finally {
@@ -40,6 +32,24 @@ export const HomePage = () => {
     }, []);
 
     useEffect(() => {
+        const filteredProductList = async () => {
+            try {
+                setLoading(true);
+                const { data } = await api.get("products");
+                const list = data.filter((product) =>
+                    product.name.toLowerCase().includes(searchProduct)
+                );
+                dispatch(productsListAction(list));
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        filteredProductList();
+    }, [searchProduct]);
+
+    useEffect(() => {
         localStorage.setItem(
             "@burgerKenzie:cartList",
             JSON.stringify(cartList)
@@ -48,14 +58,14 @@ export const HomePage = () => {
 
     return (
         <>
-            <Header setModalIsOpen={setModalIsOpen} />
+            <Header />
             <main className="container">
                 {loading ? (
                     <p className="body">Carregando informações...</p>
                 ) : (
                     <>
-                        {productsToRender.length > 0 ? (
-                            <ProductList productsToRender={productsToRender} />
+                        {productList.length > 0 ? (
+                            <ProductList />
                         ) : (
                             <p className="body">
                                 A pesquisa não retornou nenhum produto.
@@ -64,9 +74,7 @@ export const HomePage = () => {
                     </>
                 )}
 
-                {modalIsOpen ? (
-                    <CartModal setModalIsOpen={setModalIsOpen} />
-                ) : null}
+                {modalIsOpen ? <CartModal /> : null}
             </main>
         </>
     );

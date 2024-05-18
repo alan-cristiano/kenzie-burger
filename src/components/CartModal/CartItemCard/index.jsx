@@ -1,13 +1,11 @@
 import { MdDelete } from "react-icons/md";
 import style from "./style.module.scss";
 import { useDispatch } from "react-redux";
-import { removeFromCartAction } from "../../../store/modules/cart/actions";
+import { removeFromCartAction } from "../../../store/modules/productCart/actions";
 
 export const CartItemCard = ({ product }) => {
     const dispatch = useDispatch();
-    const handleRemoveFromCartList = (product) => {
-        dispatch(removeFromCartAction(product));
-    };
+
     return (
         <li className={style.itemCard}>
             <div className={style.cardInfo}>
@@ -31,7 +29,7 @@ export const CartItemCard = ({ product }) => {
             <button
                 aria-label="delete"
                 title="Remover item"
-                onClick={() => handleRemoveFromCartList(product.id)}
+                onClick={() => dispatch(removeFromCartAction(product.id))}
                 data-testid="delete-product"
             >
                 <MdDelete size={25} />

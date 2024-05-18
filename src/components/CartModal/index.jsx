@@ -4,22 +4,20 @@ import { useHandleOutClick } from "../../hooks/useHandleOutClick";
 import { useHandleKeydown } from "../../hooks/useHandleKeydown";
 import style from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { removeAllFromCartAction } from "../../store/modules/cart/actions";
+import { removeAllFromCartAction } from "../../store/modules/productCart/actions";
+import { cartModalIsOpenAction } from "../../store/modules/productCartModal/actions";
 
-export const CartModal = ({ setModalIsOpen }) => {
-    const cartList = useSelector((state) => state.cart);
-
+export const CartModal = () => {
     const dispatch = useDispatch();
-    const handleRemoveAllFromCartList = () => {
-        dispatch(removeAllFromCartAction());
-    };
+
+    const cartList = useSelector((state) => state.cart);
 
     const total = cartList.reduce((prevValue, product) => {
         return prevValue + product.price;
     }, 0);
 
     const modalRef = useHandleOutClick(() => {
-        setModalIsOpen(false);
+        dispatch(cartModalIsOpenAction(false));
     });
 
     const closeModalRef = useHandleKeydown("Escape", (element) => {
@@ -37,7 +35,9 @@ export const CartModal = ({ setModalIsOpen }) => {
                             ref={closeModalRef}
                             aria-label="close"
                             title="Fechar"
-                            onClick={() => setModalIsOpen(false)}
+                            onClick={() =>
+                                dispatch(cartModalIsOpenAction(false))
+                            }
                         >
                             <MdClose size={21} />
                         </button>
@@ -78,7 +78,9 @@ export const CartModal = ({ setModalIsOpen }) => {
                             <button
                                 data-testid="delete-all-product"
                                 className="button"
-                                onClick={() => handleRemoveAllFromCartList()}
+                                onClick={() =>
+                                    dispatch(removeAllFromCartAction())
+                                }
                             >
                                 Remover todos
                             </button>

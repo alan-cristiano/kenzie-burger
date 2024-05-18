@@ -1,14 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import style from "./style.module.scss";
-import { addToCartAction } from "../../../store/modules/cart/actions";
+import { addToCartAction } from "../../../store/modules/productCart/actions";
 
 export const ProductCard = ({ product }) => {
     const cartList = useSelector((state) => state.cart);
 
     const dispatch = useDispatch();
-    const handleAddToCartList = (product) => {
-        dispatch(addToCartAction(product));
-    };
 
     const addProductToCart = (product) => {
         if (cartList.some((element) => element.id === product.id)) {
@@ -28,7 +25,7 @@ export const ProductCard = ({ product }) => {
                 },
             }).showToast();
         } else {
-            handleAddToCartList(product);
+            dispatch(addToCartAction(product));
             Toastify({
                 text: "Produto adicionado ao carrinho de compras",
                 duration: 2000,

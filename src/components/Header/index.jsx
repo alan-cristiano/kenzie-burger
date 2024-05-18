@@ -3,25 +3,23 @@ import Logo from "../../assets/Logo.svg";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 import style from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { productSearchAction } from "../../store/modules/searchProduct/actions";
+import { productSearchAction } from "../../store/modules/productSearch/actions";
+import { cartModalIsOpenAction } from "../../store/modules/productCartModal/actions";
 
-export const Header = ({ setModalIsOpen }) => {
+export const Header = () => {
+    const dispatch = useDispatch();
+
     const [value, setValue] = useState("");
     const cartList = useSelector((state) => state.cart);
 
-    const dispatch = useDispatch();
-    const handleSearchProduct = (product) => {
-        dispatch(productSearchAction(product));
-    };
-
     const onSubmit = (e) => {
         e.preventDefault();
-        handleSearchProduct(value);
+        dispatch(productSearchAction(value));
         setValue("");
     };
 
     const cleanFilter = () => {
-        handleSearchProduct([]);
+        dispatch(productSearchAction([]));
     };
 
     return (
@@ -56,7 +54,7 @@ export const Header = ({ setModalIsOpen }) => {
                     <button
                         data-testid="cart-button"
                         className={style.cartButton}
-                        onClick={() => setModalIsOpen(true)}
+                        onClick={() => dispatch(cartModalIsOpenAction(true))}
                     >
                         ;
                         <MdShoppingCart size={27} />
