@@ -1,0 +1,3 @@
+const SET_CART_MODAL = "SET_CART_MODAL";
+
+export { SET_CART_MODAL };

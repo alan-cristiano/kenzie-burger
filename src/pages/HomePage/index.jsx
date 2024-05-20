@@ -12,7 +12,6 @@ export const HomePage = () => {
 
     const modalIsOpen = useSelector((state) => state.cartModal);
     const productList = useSelector((state) => state.products);
-    const searchProduct = useSelector((state) => state.searchProduct);
     const cartList = useSelector((state) => state.cart);
     const loadingPage = useSelector((state) => state.loadingPage);
 
@@ -30,25 +29,6 @@ export const HomePage = () => {
         };
         getProductList();
     }, []);
-
-    useEffect(() => {
-        const filteredProductList = async () => {
-            try {
-                dispatch(loadingPageAction(true));
-
-                const { data } = await api.get("products");
-                const list = data.filter((product) =>
-                    product.name.toLowerCase().includes(searchProduct)
-                );
-                dispatch(productsListAction(list));
-            } catch (error) {
-                console.log(error);
-            } finally {
-                dispatch(loadingPageAction(false));
-            }
-        };
-        filteredProductList();
-    }, [searchProduct]);
 
     useEffect(() => {
         localStorage.setItem(

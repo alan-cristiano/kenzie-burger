@@ -1,0 +1,3 @@
+const PRODUCTS_LIST = "PRODUCTS_LIST";
+
+export { PRODUCTS_LIST };

@@ -3,8 +3,11 @@ import Logo from "../../assets/Logo.svg";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 import style from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { productSearchAction } from "../../store/modules/productSearch/actions";
 import { cartModalIsOpenAction } from "../../store/modules/productCartModal/actions";
+import {
+    clearSearchProductThunk,
+    searchProductThunk,
+} from "../../store/modules/productsList/thunks";
 
 export const Header = () => {
     const dispatch = useDispatch();
@@ -14,12 +17,12 @@ export const Header = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        dispatch(productSearchAction(value));
+        dispatch(searchProductThunk(value));
         setValue("");
     };
 
-    const cleanFilter = () => {
-        dispatch(productSearchAction([]));
+    const clearFilter = () => {
+        dispatch(clearSearchProductThunk());
     };
 
     return (
@@ -46,7 +49,7 @@ export const Header = () => {
                             data-testid="clear-button"
                             className="body"
                             type="button"
-                            onClick={() => cleanFilter()}
+                            onClick={() => clearFilter()}
                         >
                             Limpar filtro
                         </button>
