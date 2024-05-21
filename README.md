@@ -1,27 +1,68 @@
-## Sobre a entrega
+# Burger Kenzie
 
-O objetivo desta é implementar um conjunto de funcionalidades e estilização a projeto existente, colocando em prática os conhecimentos aprendidos até aqui.
-Iremos acessar a lista de produto desta API e simularemos um carrinho de compras com React.
-Além disso, para praticar a estilização, a aplicação deverá ser semelhante a este Figma.
+## Acesso ao projeto
 
-## Instruções
-Comece realizando o clone do repositório. Diferente da entrega anterior, novamente, não partiremos da estaca zero, por isso, após o clone execute o npm install para baixar as dependências.
+## Descrição
 
-### 1. Estilização
-Todos os componentes da aplicação já estão prontos de forma básica, e novamente, utilizaremos o SASS para estilizar este projeto, por isso, o estilo pode ser um excelente ponto de partida. 
-Atente-se que, nessa entrega a responsividade vai ser obrigatória, por isso, chegou o momento de você aplicar tudo que aprendeu até agora.
+-   Aplicação front-end desenvolvida em React como Single Page Application para gerenciar pedidos de uma lanchonete fictícia;
+-   Desenvolvimento conforme padrão TDD (test driven development) implementando testes de componente e end-to-end;
+-   Projeto estruturado visando a escalabilidade e melhor manutenção do código. Para isso foi utilizada gerenciamento de estado global com Redux e arquitetura Component Based.
+-   Comunicação com API Rest para leitura de dados;
+-   Modal para carrinho de compras com persistência de dados em local storage;
+-   Filtro para busca de produtos;
+-   Aplicação responsiva para utilização em mobile e desktop;
+-   Toasts para alertas principais.
 
-### 2. Trazendo os produtos da API | Busca
-Um bom primeiro passo na lógica será utilizar o useEffect para trazer os produtos da API, fique atento, já existe um estado adequado para armazenar os produtos e também já foi feito um map do mesmo.
-Com os produtos vindo da API, uma funcionalidade interessante a desenvolver em seguida é a busca, observe que o formulário de busca já captura o que o usuário fornece.
+## Tecnologias utilizadas
 
-### 3. Gerenciamento do carrinho | Modal
-De forma muito semelhante ao gerenciamento de transações na entrega anterior, trabalhe na lógica de adicionar e remover itens do carrinho, bem como imprimir os totais. Fique atento, diferente da entrega anterior, os produtos do carrinho virão da própria lista de produtos fornecida pela API.
+-   [React](https://react.dev/): Criação da interface de usuário;
+-   [Sass](https://sass-lang.com/): Pré processador CSS;
+-   [Axios](https://axios-http.com/): HTTP Client para comunicação com a API que disponibiliza a relação de produtos disponíveis para a lanchonete;
+-   [Redux](https://redux.js.org/): Gerenciamento de estado global;
+-   [Cypress](https://www.cypress.io/): Ferramenta de testes automáticos para desenvolvimento dos testes end-to-end;
+-   JavaScript: Linguagem de programação utilizada.
 
-Nessa etapa, com o gerenciamento funcionando de forma correta, valerá muito a pena utilizar o useEffect para persistir os dados do carrinho no localStorage.
+## Funcionalidades da aplicação
 
-### 4. Modal
-Para o modal, será exigido um comportamento simples de abertura e fechamento, aplique seu conhecimento de condicionais no JSX.
+1.  Adição de produtos ao carrinho de compras por meio do botão "adicionar" presente no card de produto;
+2.  O carrinho de compras pode ser acessado pelo ícone presente no header da aplicação. Há a possibilidade de remover os produtos de forma individual ou total por meio dos botões presentes no carrinho de compras;
+3.  É possível buscar por um produto específico por meio do filtro de busca presente também no header da aplicação;
+4.  Os dados dos produtos presentes no carrinho de compras são persistidos em local storage para que, em caso de atualização ou um novo acesso à pagina, os dados sejam mantidos.
 
-### 5. Desafio - Refine o comportamento do seu modal
-Não é obrigatório, mas, caso você consiga, com base no que foi mostrado nos conteúdos extras, aplique os comportamentos de: fechar ao clicar fora e fechar ao clicar na "Esc" em seu modal, de preferência trabalhando com a criação de hooks para cada um destes comportamentos. Você consegue!
+## Pré-requisitos
+
+Será necessário possuir as seguintes ferramentas instaladas:
+
+-   [Git](https://git-scm.com/)
+-   [Node.js](https://nodejs.org/en)
+
+## Clonando o projeto
+
+```bash
+git clone <github template url> <project_name>
+```
+
+## Instalando dependências
+
+Instalando dependências de desenvolvimento e produção:
+
+```bash
+cd <project_name>
+npm install
+```
+
+## Inicializando os testes automáticos end-to-end
+
+```bash
+npm run test
+```
+
+## Inicializando o servidor
+
+O projeto roda, por padrão, na porta 5173.
+
+```bash
+npm run dev
+```
+
+Navegue até http://localhost:5173 para acessar a aplicação.
