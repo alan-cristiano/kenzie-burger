@@ -1,6 +1,8 @@
-# Burger Kenzie
+# Kenzie Burger
 
 ## Acesso ao projeto
+
+https://kenzie-burger-alan-cristiano.vercel.app/
 
 ## Descrição
 
